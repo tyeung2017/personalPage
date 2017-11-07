@@ -134,6 +134,8 @@ function checkFinish (obj) {
 function init () {
   var width = canvas.width = window.innerWidth;
   var height = canvas.height = window.innerHeight;
+//  console.log(`width ${width} canvas.width ${canvas.width} window.innerWidth ${window.innerWidth}`);
+//  setTimeout(e=>console.log(` after width ${width} canvas.width ${canvas.width} window.innerWidth ${window.innerWidth}`), 0);
   var totalStream = Math.floor(width / 22) % 2 === 0 ? Math.floor(width / 22) + 1 : Math.floor(width / 22);
   var fontSize = Math.round(width / totalStream);
   var nameHeight = Math.round(height / 2 / fontSize) * fontSize; // alignment
@@ -161,5 +163,7 @@ window.addEventListener('resize', function () { // redraw the whole thing -- let
   // link.style.display = 'none'; // reset everything
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   clearInterval(loopListener);
-  init();
+  setTimeout(init, 50); // as the resize triggers at the beginning of the action, some of the browsers like chrome and FF will return old value of the dimensions
+                        // do not need clearTimeout as we want the init() to return and it should be 
+                        // setting 0 is good enough to get the correct width but not the height, and 50 milisec is good enough
 });
