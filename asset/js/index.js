@@ -88,7 +88,9 @@ function drawType1 (width, height, fontStyle, streams, nameHeight, nameText, cap
   ctx.font = nameFontStyle;
   printText(nameText, nameWidth, nameHeight, fontSize);
   numOfStreams && printText(captionText, captionWidth, captionHeight, fontSize);
-  if ((!numOfStreams && checkFinish(nameText)) || (numOfStreams && checkFinish(nameText) && checkFinish(captionText))) visible();
+  if (!link.classList.contains('visible') && // reduce redundant function calling and checking
+    ((!numOfStreams && checkFinish(nameText)) || // in case of smaller screen size and only the name should be printed
+    (numOfStreams && checkFinish(nameText) && checkFinish(captionText)))) visible();// for normal case
 }
 
 function Character (x, y, height, fontSize) {
@@ -134,8 +136,6 @@ function checkFinish (obj) {
 function init () {
   var width = canvas.width = window.innerWidth;
   var height = canvas.height = window.innerHeight;
-//  console.log(`width ${width} canvas.width ${canvas.width} window.innerWidth ${window.innerWidth}`);
-//  setTimeout(e=>console.log(` after width ${width} canvas.width ${canvas.width} window.innerWidth ${window.innerWidth}`), 0);
   var totalStream = Math.floor(width / 22) % 2 === 0 ? Math.floor(width / 22) + 1 : Math.floor(width / 22);
   var fontSize = Math.round(width / totalStream);
   var nameHeight = Math.round(height / 2 / fontSize) * fontSize; // alignment
@@ -160,10 +160,9 @@ init();
 
 window.addEventListener('resize', function () { // redraw the whole thing -- let the awesome animation run again!
   hide();
-  // link.style.display = 'none'; // reset everything
+  // reset everything
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   clearInterval(loopListener);
   setTimeout(init, 50); // as the resize triggers at the beginning of the action, some of the browsers like chrome and FF will return old value of the dimensions
-                        // do not need clearTimeout as we want the init() to return and it should be 
-                        // setting 0 is good enough to get the correct width but not the height, and 50 milisec is good enough
-});
+}); // do not need clearTimeout as we want the init() to return and it should be
+// setting 0 is good enough to get the correct width but not the height, and 50 milisec is good enough
