@@ -1,5 +1,6 @@
 *{
   margin:0;
+  overflow:hidden;
 }
 
 a{
@@ -22,6 +23,10 @@ footer{
 
 .hidden{
   transform:translateY(100%);
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
   transition: all 0.8s ease-in;
 }
 
@@ -30,9 +35,16 @@ footer{
 }
 
 footer .link{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+ display: -webkit-box;
+ display: -ms-flexbox;
+ display: flex;
+ -webkit-box-orient: horizontal;
+ -webkit-box-direction: normal;
+ -ms-flex-direction: row;
+         flex-direction: row;
+ -webkit-box-pack: center;
+ -ms-flex-pack: center;
+         justify-content: center;
   color: white;
 }
 
@@ -52,17 +64,29 @@ footer .link .svg{
 }
 
 .github{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  justify-content:center;
-  align-items:center;
+  -webkit-box-pack:center;
+  -ms-flex-pack:center;
+          justify-content:center;
+  -webkit-box-align:center;
+  -ms-flex-align:center;
+          align-items:center;
   background-image: url("../img/github.svg");
   margin-left:1rem;
 }
 
 .linkedin{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  justify-content:center;
-  align-items:center;
+  -webkit-box-pack:center;
+  -ms-flex-pack:center;
+          justify-content:center;
+  -webkit-box-align:center;
+  -ms-flex-align:center;
+          align-items:center;
   background-image: url("../img/linkedin.svg");
   margin-right:1rem;
 }
